@@ -15,7 +15,7 @@ namespace SkillScale
     {
         public const string ModGuid = "com.ljindustries.valheim.skillscale";
         public const string ModName = "SkillScale";
-        public const string ModVersion = "1.0.0";
+        public const string ModVersion = "1.0.1";
 
         internal static Plugin Instance;
         internal static ManualLogSource Log;

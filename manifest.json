@@ -1,6 +1,6 @@
 {
   "name": "SkillScale",
-  "version_number": "1.0.0",
+  "version_number": "1.0.1",
   "website_url": "https://github.com/LucasFin/SkillScale",
   "description": "Scale the leveling grind to how employed you are.",
   "dependencies": [

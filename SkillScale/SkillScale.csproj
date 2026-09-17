@@ -7,7 +7,7 @@
     <AssemblyName>SkillScale</AssemblyName>
     <RootNamespace>SkillScale</RootNamespace>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <DebugType>portable</DebugType>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <Product>SkillScale</Product>
