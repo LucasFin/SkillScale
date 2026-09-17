@@ -1,6 +1,7 @@
 # SkillScale
 
-Control how fast each Valheim skill levels up, and how much skill you lose when you die.
+Valheim assumes you have infinite free time.
+SkillScale assumes you might not. You pick how fast each skill levels up, and how much you lose when you die.
 
 ## What it does
 

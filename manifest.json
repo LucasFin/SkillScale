@@ -2,7 +2,7 @@
   "name": "SkillScale",
   "version_number": "1.0.0",
   "website_url": "https://github.com/LucasFin/SkillScale",
-  "description": "Set how fast each skill levels up, and how much skill you lose on death.",
+  "description": "Scale the leveling grind to how employed you are.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2350"
   ]
