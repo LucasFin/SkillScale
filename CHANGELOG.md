@@ -4,7 +4,7 @@
 
 First release.
 
-- Set XP gain for each skill, and how much skill you lose on death
-- Fixed picking bushes, berries, and crops while farming XP still works
-- Settings can sync from a dedicated server
-- Do not use together with AzuSkillTweaks or OdinsQOL
+- Set XP gain for each skill
+- Set how much skill you lose on death
+- Optional skill gain messages
+- Server sync for shared settings

@@ -9,7 +9,7 @@ repository = "https://thunderstore.io"
 namespace = "LJIndustries"
 name = "SkillScale"
 versionNumber = "1.0.0"
-description = "Set how fast each skill levels up, and how much you lose on death. AzuSkillTweaks style, fixed for current Valheim."
+description = "Set how fast each skill levels up, and how much skill you lose on death."
 websiteUrl = "https://github.com/LucasFin/SkillScale"
 containsNsfwContent = false
 

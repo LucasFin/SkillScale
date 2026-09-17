@@ -5,3 +5,5 @@ build/
 *.suo
 .vs/
 .idea/
+.cursor/
+DEVELOPMENT.md
