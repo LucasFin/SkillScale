@@ -1,0 +1,18 @@
+SkillScale
+Copyright (c) 2026 LJIndustries / LucasFin
+
+This program is a derivative work of the skill-gain and death-penalty patches from:
+
+  OdinsQOL by Azumatt / Odin Plus Team
+  https://github.com/AzumattDev/OdinsQOL
+  GNU Affero General Public License v3.0
+
+  AzuSkillTweaks by Azumatt (same lineage, Thunderstore package Azumatt-AzuSkillTweaks)
+
+The GNU AGPL v3 text is in LICENSE.
+
+Third-party:
+
+  ServerSync (SkillScale/ServerSync/ConfigSync.cs)
+  Copyright 2021 Tykea
+  MIT License (SkillScale/ServerSync/LICENSE.txt)

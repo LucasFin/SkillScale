@@ -1,0 +1,28 @@
+---
+description: GitHub identity is LucasFin only. Never 3WiseStooges. Never Jeremy.
+alwaysApply: true
+---
+
+# GitHub is LucasFin. Period.
+
+Pushes, commit author, and committer are **LucasFin**. Never **3WiseStooges**. Never Jeremy / jwzema@gmail.com. GitHub maps that email to 3WiseStooges.
+
+## Before every commit
+
+Set author and committer for that commit only (do not run `git config`):
+
+- Name: `LucasFin`
+- Email: `97265365+LucasFin@users.noreply.github.com`
+
+If a commit would be Jeremy / jwzema@gmail.com, stop and redo it as LucasFin.
+
+## Before every push
+
+1. Confirm `origin` (or the URL you push) is `https://github.com/LucasFin/<repo>.git`.
+2. Confirm `gh api user --jq .login` is `LucasFin`. If it is `3WiseStooges` or anything else, **abort**. Do not push.
+3. If `origin` is 3WiseStooges, still push to LucasFin. Do not retarget `origin` unless they ask.
+4. Leave existing 3WiseStooges remotes as they are.
+
+Thunderstore team can stay `LJIndustries`. This rule is GitHub identity only.
+
+Do not push unless they explicitly ask in that message. Do not force-push unless they explicitly ask.

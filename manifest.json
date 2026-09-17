@@ -1,0 +1,9 @@
+{
+  "name": "SkillScale",
+  "version_number": "1.0.0",
+  "website_url": "https://github.com/LucasFin/SkillScale",
+  "description": "Set how fast each skill levels up, and how much you lose on death. AzuSkillTweaks style, fixed for current Valheim.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2350"
+  ]
+}

@@ -1,0 +1,10 @@
+---
+description: Do not copy Valheim plugin DLLs into r2modman. Ship Thunderstore packages only.
+alwaysApply: true
+---
+
+# Ship through Thunderstore, not profile folders
+
+Do not copy `SkillScale.dll` into an r2modman profile. Build into `package/`, then install the Thunderstore zip (or `tcli publish`) the same way a player would.
+
+Do not git push unless the user explicitly asks in that message.

@@ -1,0 +1,70 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <AssemblyName>SkillScale</AssemblyName>
+    <RootNamespace>SkillScale</RootNamespace>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <Version>1.0.0</Version>
+    <DebugType>portable</DebugType>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Product>SkillScale</Product>
+    <Description>Set how fast each Valheim skill levels up, and how much you lose on death.</Description>
+    <MSBuildWarningsAsMessages>MSB3277</MSBuildWarningsAsMessages>
+    <NoWarn>$(NoWarn);CS8632</NoWarn>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ValheimFolder Condition="'$(ValheimFolder)' == '' AND Exists('$(HOME)/.local/share/Steam/steamapps/common/Valheim')">$(HOME)/.local/share/Steam/steamapps/common/Valheim</ValheimFolder>
+    <ValheimFolder Condition="'$(ValheimFolder)' == '' AND Exists('$(HOME)/.steam/steam/steamapps/common/Valheim')">$(HOME)/.steam/steam/steamapps/common/Valheim</ValheimFolder>
+    <ValheimFolder Condition="'$(ValheimFolder)' == '' AND Exists('X:\SteamLibrary\steamapps\common\Valheim')">X:\SteamLibrary\steamapps\common\Valheim</ValheimFolder>
+    <ValheimFolder Condition="'$(ValheimFolder)' == '' AND Exists('$(ProgramFiles)\Steam\steamapps\common\Valheim')">$(ProgramFiles)\Steam\steamapps\common\Valheim</ValheimFolder>
+    <ValheimFolder Condition="'$(ValheimFolder)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Valheim</ValheimFolder>
+    <Managed>$(ValheimFolder)\valheim_Data\Managed</Managed>
+  </PropertyGroup>
+
+  <Target Name="VerifyRefs" BeforeTargets="BeforeBuild">
+    <Error Condition="!Exists('$(Managed)\assembly_valheim.dll')"
+           Text="Valheim managed assemblies not found at '$(Managed)'. Pass -p:ValheimFolder=&quot;...&quot;." />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" PrivateAssets="all" />
+    <PackageReference Include="HarmonyX" Version="2.10.2" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="assembly_valheim">
+      <HintPath>$(Managed)\assembly_valheim.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="assembly_utils">
+      <HintPath>$(Managed)\assembly_utils.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(Managed)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(Managed)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(Managed)\UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>$(Managed)\Unity.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="CopyOutputs" AfterTargets="Build">
+    <MakeDir Directories="$(MSBuildProjectDirectory)\..\package" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\..\package" />
+  </Target>
+</Project>
