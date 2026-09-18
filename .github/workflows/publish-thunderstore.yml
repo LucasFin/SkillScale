@@ -1,6 +1,8 @@
 name: Publish to Thunderstore
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 concurrency:

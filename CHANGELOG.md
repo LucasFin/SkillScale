@@ -9,7 +9,6 @@
 - Optional per-action XP toasts (throttled, Run skipped by default; toggle in the menu)
 - Small in-game menu (default backslash `\` / `|` key; ignored while chatting): presets, global, death loss, and per-skill dials
 - Menu unlocks the mouse, dims the world, and closes if inventory / pause opens
-- Menu hotkey stays off F1 so Configuration Manager can coexist
 - Plays nicer with other XP mods (applies last, multiplies only)
 - Clients without the mod are not kicked from the server
 

@@ -24,13 +24,11 @@ On a dedicated server, settings can sync to players and the config can be locked
 
 **In-game panel (built in):** press **\\** (backslash, the `\` / `|` key) by default. The mouse unlocks while the panel is open. Backslash or Esc closes it; opening inventory or the pause menu also closes it so you do not click through. Hotkey is ignored while chat, console, map, or text prompts have focus. Change it under `6 - In-Game Menu` if you want.
 
-**Configuration Manager (optional):** if you install that mod, press **F1**. Same settings, different window. SkillScale does not use F1, so the two do not fight.
-
 **Config file:**
 
 `BepInEx/config/com.ljindustries.valheim.skillscale.cfg`
 
-The in-game panel covers presets, global, death loss, and a scrollable per-skill list. F1 and the `.cfg` show the same values.
+The in-game panel covers presets, global, death loss, and a scrollable per-skill list. The `.cfg` shows the same values.
 
 ## Settings overview
 

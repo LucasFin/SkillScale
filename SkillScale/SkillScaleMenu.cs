@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using UnityEngine;
 
@@ -14,7 +13,6 @@ namespace SkillScale
     [DefaultExecutionOrder(10000)]
     internal class SkillScaleMenu : MonoBehaviour
     {
-        private const string ConfigManagerGuid = "com.bepis.bepinex.configurationmanager";
         private const float ReferenceHeight = 1080f;
         private const float PanelWidth = 500f;
         private const float RowHeight = 26f;
@@ -350,11 +348,6 @@ namespace SkillScale
             GUILayout.Space(2f);
             GUILayout.BeginHorizontal();
             GUILayout.Label("Esc closes · \\ / | opens", _hintStyle, GUILayout.ExpandWidth(true));
-            if (HasConfigurationManager())
-            {
-                GUILayout.Label("F1 = Config Manager", _hintStyle);
-            }
-
             GUILayout.EndHorizontal();
             GUILayout.EndVertical();
 
@@ -1420,12 +1413,6 @@ namespace SkillScale
         private static float SnapType(float value)
         {
             return (float)Math.Round(value / TypeStep) * TypeStep;
-        }
-
-        private static bool HasConfigurationManager()
-        {
-            return Chainloader.PluginInfos != null &&
-                   Chainloader.PluginInfos.ContainsKey(ConfigManagerGuid);
         }
 
         private static bool ShouldIgnoreHotkey()
