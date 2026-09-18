@@ -3,22 +3,29 @@ using HarmonyLib;
 
 namespace SkillScale.Patches
 {
+    /// <summary>
+    /// Priority.Last so we multiply whatever factor other mods left, instead of fighting them.
+    /// </summary>
     [HarmonyPatch(typeof(Skills), nameof(Skills.RaiseSkill))]
+    [HarmonyPriority(Priority.Last)]
     internal static class RaiseSkillPatch
     {
         private static void Prefix(ref Skills.SkillType skillType, ref float factor)
         {
             try
             {
-                if (!ModConfig.ChangeSkills.Value)
+                if (!ModConfig.EnableSkillScaling.Value)
                 {
                     return;
                 }
 
-                if (ModConfig.TryGetGainModifier(skillType, out float modifier))
+                if (skillType == Skills.SkillType.None || skillType == Skills.SkillType.All)
                 {
-                    factor = Utilities.ApplyModifierValue(factor, modifier);
+                    return;
                 }
+
+                ModConfig.EnsureSkillMultiplier(skillType);
+                factor = Utilities.Scale(factor, ModConfig.GetXpMultiplier(skillType));
             }
             catch (Exception ex)
             {
@@ -28,8 +35,7 @@ namespace SkillScale.Patches
 
         private static void Postfix(Skills __instance, Skills.SkillType skillType, float factor)
         {
-            // Never throw here. Harvesting grants farming XP before the item is picked.
-            // If a notification fails, the pick must still finish.
+            // Never throw. Harvesting grants farming XP before the pick finishes.
             try
             {
                 SkillNotifications.TryShow(__instance, skillType, factor);

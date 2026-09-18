@@ -8,7 +8,7 @@ repository = "https://thunderstore.io"
 # Must match your Thunderstore team name exactly
 namespace = "LJIndustries"
 name = "SkillScale"
-versionNumber = "1.0.1"
+versionNumber = "1.1.0"
 description = "Scale the leveling grind to how employed you are."
 websiteUrl = "https://github.com/LucasFin/SkillScale"
 containsNsfwContent = false

@@ -15,16 +15,18 @@ namespace SkillScale
     {
         public const string ModGuid = "com.ljindustries.valheim.skillscale";
         public const string ModName = "SkillScale";
-        public const string ModVersion = "1.0.1";
+        public const string ModVersion = "1.1.0";
 
         internal static Plugin Instance;
         internal static ManualLogSource Log;
 
+        // ModRequired stays false (ServerSync default): clients without the mod are not kicked.
         internal static ConfigSync ConfigSync = new(ModGuid)
         {
             DisplayName = ModName,
             CurrentVersion = ModVersion,
-            MinimumRequiredVersion = ModVersion
+            MinimumRequiredVersion = "0.0.0",
+            ModRequired = false
         };
 
         private Harmony _harmony;
@@ -51,7 +53,8 @@ namespace SkillScale
             }
 
             SetupWatcher();
-            Logger.LogInfo($"{ModName} {ModVersion} loaded.");
+            gameObject.AddComponent<SkillScaleMenu>();
+            Logger.LogInfo($"{ModName} {ModVersion} loaded. Menu hotkey: {ModConfig.MenuKey.Value}");
         }
 
         private void OnDestroy()
@@ -63,7 +66,18 @@ namespace SkillScale
         internal ConfigEntry<T> BindSynced<T>(string group, string name, T value, string description,
             bool synchronizedSetting = true)
         {
-            var extended = description + (synchronizedSetting ? " [Synced with Server]" : " [Not Synced with Server]");
+            return BindSynced(group, name, value, new ConfigDescription(description), synchronizedSetting);
+        }
+
+        internal ConfigEntry<T> BindSynced<T>(string group, string name, T value, ConfigDescription description,
+            bool synchronizedSetting = true)
+        {
+            string suffix = synchronizedSetting ? " [Synced with Server]" : " [Not Synced with Server]";
+            var tags = description.Tags ?? Array.Empty<object>();
+            var extended = new ConfigDescription(
+                description.Description + suffix,
+                description.AcceptableValues,
+                tags);
             var entry = Config.Bind(group, name, value, extended);
             var synced = ConfigSync.AddConfigEntry(entry);
             synced.SynchronizedConfig = synchronizedSetting;
@@ -89,6 +103,7 @@ namespace SkillScale
             try
             {
                 Config.Reload();
+                ModConfig.SanitizeRates();
             }
             catch (Exception ex)
             {

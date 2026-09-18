@@ -5,32 +5,47 @@ SkillScale assumes you might not. You pick how fast each skill levels up, and ho
 
 ## What it does
 
-Each skill has its own gain setting:
+Pick an employment preset, or set your own rates:
 
-- `50` = 50% more XP
-- `-50` = 50% less XP
-- `0` = normal
-- `-100` = no XP for that skill
+| Preset | XP rate |
+| --- | --- |
+| Giga Unemployed | 0.75x |
+| Unemployed | 1x (normal, default) |
+| Part-time | 1.5x |
+| Full-time | 2.5x |
 
-Death penalty uses the same numbers.
+**Global dial** sets the rate for every skill that is still on that value. **Per skill** is the final XP rate for that skill (not multiplied on top of global). Example: global `2.5x`, then set Farming to `5x` - Farming is `5x`, everything else stays `2.5x`. No math.
 
-On a dedicated server, settings can sync to players and the config can be locked.
+Death skill loss uses the same kind of multiplier (`1` = normal, `0` = none).
 
-## Settings
+On a dedicated server, settings can sync to players and the config can be locked. Players without the mod are not kicked.
 
-F1 Configuration Manager, or:
+## How to change settings
+
+**In-game panel (built in):** press **\\** (backslash, the `\` / `|` key) by default. The mouse unlocks while the panel is open. Backslash or Esc closes it; opening inventory or the pause menu also closes it so you do not click through. Hotkey is ignored while chat, console, map, or text prompts have focus. Change it under `6 - In-Game Menu` if you want.
+
+**Configuration Manager (optional):** if you install that mod, press **F1**. Same settings, different window. SkillScale does not use F1, so the two do not fight.
+
+**Config file:**
 
 `BepInEx/config/com.ljindustries.valheim.skillscale.cfg`
 
-**General**
+The in-game panel covers presets, global, death loss, and a scrollable per-skill list. F1 and the `.cfg` show the same values.
 
-- Lock Configuration: only server admins can change settings (default on)
+## Settings overview
 
-**Skills**
+**General** - lock config, enable scaling
 
-- Change the skill gain factor: master on/off (default on)
-- Display notifications for skills gained: top-left XP messages (default on)
-- Should running skill notifications be ignored: hide Run spam (default on)
-- Skill Notification Text Size: default 14
-- One gain setting per skill. Default 0
-- Death Penalty Factor Multiplier: default 0
+**Rates** - employment preset, global dial
+
+**Per Skill** - final XP rate per skill (default matches global)
+
+**Death** - death skill loss multiplier (default `1`)
+
+**Notifications** - optional XP progress toasts (throttled; Run skipped by default). Toggle in the in-game menu.
+
+**In-Game Menu** - enable panel, choose hotkey (not synced; each player can pick their own)
+
+## Note for existing installs
+
+1.1.0 uses real multipliers (`1`, `1.5`, `2.5`) instead of the old percent-style numbers (`250` = +250%). Check your config after updating. Per-skill values are final rates, not stacked on global.

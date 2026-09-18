@@ -4,13 +4,14 @@ using HarmonyLib;
 namespace SkillScale.Patches
 {
     [HarmonyPatch(typeof(Skills), nameof(Skills.LowerAllSkills))]
+    [HarmonyPriority(Priority.Last)]
     internal static class DeathPenaltyPatch
     {
         private static void Prefix(ref float factor)
         {
             try
             {
-                factor = Utilities.ApplyModifierValue(factor, ModConfig.DeathPenaltyMultiplier.Value);
+                factor = Utilities.Scale(factor, ModConfig.ClampDeathRate(ModConfig.DeathLossMultiplier.Value));
             }
             catch (Exception ex)
             {
