@@ -276,8 +276,6 @@ namespace SkillScale
 
         private void DrawWindow(int id)
         {
-            bool locked = IsConfigLockedForLocalPlayer();
-
             GUILayout.BeginVertical(GUILayout.ExpandWidth(true));
 
             GUILayout.BeginHorizontal();
@@ -303,12 +301,6 @@ namespace SkillScale
                 _scrollStyle,
                 GUILayout.Height(bodyH),
                 GUILayout.ExpandWidth(true));
-
-            GUI.enabled = !locked;
-            if (locked)
-            {
-                GUILayout.Label("Locked by the server host.", _hintStyle);
-            }
 
             DrawEnableToggle();
             GUILayout.Space(4f);
@@ -338,7 +330,7 @@ namespace SkillScale
                 ref _deathText);
 
             GUILayout.Space(6f);
-            DrawSkillsSection(locked, ModConfig.GlobalMultiplier.Value);
+            DrawSkillsSection(ModConfig.GlobalMultiplier.Value);
 
             GUILayout.Space(8f);
             GUILayout.EndScrollView();
@@ -466,7 +458,7 @@ namespace SkillScale
                 _hintStyle);
         }
 
-        private void DrawSkillsSection(bool locked, float global)
+        private void DrawSkillsSection(float global)
         {
             GUILayout.Label("Per skill", _sectionStyle);
             GUILayout.Label("Reset appears when a skill is off the global rate.", _hintStyle);
@@ -484,7 +476,7 @@ namespace SkillScale
                 skills.Count > 0 ? $"{skills.Count} skills" : "Load a character to fill this list",
                 _bodyStyle,
                 GUILayout.ExpandWidth(true));
-            GUI.enabled = !locked && skills.Count > 0;
+            GUI.enabled = skills.Count > 0;
             if (GUILayout.Button("Reset all to global", _ghostButtonStyle, GUILayout.Width(140f), GUILayout.Height(24f)))
             {
                 ModConfig.SetAllSkillRates(globalDisplay);
@@ -492,7 +484,7 @@ namespace SkillScale
                 ClearSkillDrafts();
             }
 
-            GUI.enabled = !locked;
+            GUI.enabled = true;
             GUILayout.EndHorizontal();
 
             if (skills.Count == 0)
@@ -504,11 +496,11 @@ namespace SkillScale
 
             foreach (KeyValuePair<Skills.SkillType, ConfigEntry<float>> pair in skills)
             {
-                DrawSkillRow(pair.Key, pair.Value, globalDisplay, locked);
+                DrawSkillRow(pair.Key, pair.Value, globalDisplay);
             }
         }
 
-        private void DrawSkillRow(Skills.SkillType skill, ConfigEntry<float> entry, float global, bool locked)
+        private void DrawSkillRow(Skills.SkillType skill, ConfigEntry<float> entry, float global)
         {
             string name = ModConfig.GetDisplayName(skill);
             string focus = "skill_" + (int)skill;
@@ -530,7 +522,6 @@ namespace SkillScale
 
             if (offDefault)
             {
-                GUI.enabled = !locked;
                 if (GUILayout.Button("Reset", _ghostButtonStyle, GUILayout.Width(52f), GUILayout.Height(22f)))
                 {
                     entry.Value = global;
@@ -541,7 +532,6 @@ namespace SkillScale
                 }
             }
 
-            GUI.enabled = !locked;
             GUILayout.EndHorizontal();
 
             float next = DrawRateControls(focus, display, ModConfig.MinRate, ModConfig.MaxXpRate, ref text, out bool commit);
@@ -1325,13 +1315,6 @@ namespace SkillScale
             tex.SetPixels(new[] { color, color, color, color });
             tex.Apply(false);
             return tex;
-        }
-
-        private static bool IsConfigLockedForLocalPlayer()
-        {
-            return Plugin.ConfigSync != null &&
-                   Plugin.ConfigSync.IsLocked &&
-                   !Plugin.ConfigSync.IsAdmin;
         }
 
         private static bool HasBlockingGameUi()

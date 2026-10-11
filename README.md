@@ -18,7 +18,7 @@ Pick an employment preset, or set your own rates:
 
 Death skill loss uses the same kind of multiplier (`1` = normal, `0` = none).
 
-On a dedicated server, settings can sync to players and the config can be locked. Players without the mod are not kicked.
+On a friend's world or a dedicated server, your rates stay yours. The host does not overwrite them, and you do not overwrite theirs. Players without the mod keep vanilla XP and are not kicked.
 
 ## How to change settings
 
@@ -32,7 +32,7 @@ The in-game panel covers presets, global, death loss, and a scrollable per-skill
 
 ## Settings overview
 
-**General** - lock config, enable scaling
+**General** - enable scaling
 
 **Rates** - employment preset, global dial
 
@@ -42,7 +42,7 @@ The in-game panel covers presets, global, death loss, and a scrollable per-skill
 
 **Notifications** - optional XP progress toasts (throttled; Run skipped by default). Toggle in the in-game menu.
 
-**In-Game Menu** - enable panel, choose hotkey (not synced; each player can pick their own)
+**In-Game Menu** - enable panel, choose hotkey
 
 ## Note for existing installs
 

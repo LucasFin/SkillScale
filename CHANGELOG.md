@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- Skill rates are per player again, including on a friend's server. The host no longer locks or overwrites your dials. Old `Lock Configuration` lines in the `.cfg` do nothing.
+
 ## 1.1.0
 
 - Employment presets: Giga Unemployed 0.75x, Unemployed 1x, Part-time 1.5x, Full-time 2.5x

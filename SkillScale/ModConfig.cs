@@ -20,7 +20,6 @@ namespace SkillScale
         private const string SectionNotifs = "5 - Notifications";
         private const string SectionMenu = "6 - In-Game Menu";
 
-        internal static ConfigEntry<bool> LockConfiguration;
         internal static ConfigEntry<bool> EnableSkillScaling;
         internal static ConfigEntry<EmploymentPreset> Preset;
         internal static ConfigEntry<float> GlobalMultiplier;
@@ -77,50 +76,54 @@ namespace SkillScale
         {
             _plugin = plugin;
 
-            LockConfiguration = plugin.BindSynced(
-                SectionGeneral, "Lock Configuration", true,
-                "If on, only server admins can change the config.");
-            Plugin.ConfigSync.AddLockingConfigEntry(LockConfiguration);
-
+            // Rates stay local so each player can set their own grind, including on a friend's world.
             EnableSkillScaling = plugin.BindSynced(
                 SectionGeneral, "Enable Skill Scaling", true,
-                "Master switch for XP rate changes. Off = vanilla skill gain.");
+                "Master switch for XP rate changes. Off = vanilla skill gain.",
+                synchronizedSetting: false);
 
             Preset = plugin.BindSynced(
                 SectionRates, "Employment Preset", EmploymentPreset.Unemployed,
-                "Giga Unemployed 0.75x, Unemployed 1x (default), Part-time 1.5x, Full-time 2.5x. Custom means you set the global dial yourself.");
+                "Giga Unemployed 0.75x, Unemployed 1x (default), Part-time 1.5x, Full-time 2.5x. Custom means you set the global dial yourself.",
+                synchronizedSetting: false);
 
             GlobalMultiplier = plugin.BindSynced(
                 SectionRates, "Global Multiplier", 1f,
                 new ConfigDescription(
                     "XP rate applied to every skill that still matches this value. Change a skill under Per Skill to give it its own rate (not multiplied). Allowed 0 to 10.",
-                    new AcceptableValueRange<float>(MinRate, MaxXpRate)));
+                    new AcceptableValueRange<float>(MinRate, MaxXpRate)),
+                synchronizedSetting: false);
 
             DeathLossMultiplier = plugin.BindSynced(
                 SectionDeath, "Death Skill Loss Multiplier", 1f,
                 new ConfigDescription(
                     "How hard death hits your skills. 0 = keep skills, 1 = normal Valheim loss, 2 = twice as harsh. Allowed 0 to 5.",
-                    new AcceptableValueRange<float>(MinRate, MaxDeathRate)));
+                    new AcceptableValueRange<float>(MinRate, MaxDeathRate)),
+                synchronizedSetting: false);
 
             SwingXpNotifications = plugin.BindSynced(
                 SectionNotifs, "Show XP On Action", true,
-                "Top-left XP progress toasts while skills gain. Throttled so it stays readable. Vanilla level-up toasts still show.");
+                "Top-left XP progress toasts while skills gain. Throttled so it stays readable. Vanilla level-up toasts still show.",
+                synchronizedSetting: false);
 
             SkipRunNotifications = plugin.BindSynced(
                 SectionNotifs, "Skip Run XP Messages", true,
-                "Hide Run when XP toasts are on (Run fires constantly).");
+                "Hide Run when XP toasts are on (Run fires constantly).",
+                synchronizedSetting: false);
 
             XpToastInterval = plugin.BindSynced(
                 SectionNotifs, "XP Toast Interval", 2.5f,
                 new ConfigDescription(
                     "Seconds between toasts for the same skill. Lower = more messages.",
-                    new AcceptableValueRange<float>(0.5f, 10f)));
+                    new AcceptableValueRange<float>(0.5f, 10f)),
+                synchronizedSetting: false);
 
             NotificationTextSize = plugin.BindSynced(
                 SectionNotifs, "XP Message Text Size", 14,
                 new ConfigDescription(
                     "Text size for the optional per-action XP message.",
-                    new AcceptableValueRange<int>(MinNoticeSize, MaxNoticeSize)));
+                    new AcceptableValueRange<int>(MinNoticeSize, MaxNoticeSize)),
+                synchronizedSetting: false);
 
             EnableInGameMenu = plugin.BindSynced(
                 SectionMenu, "Enable In-Game Menu", true,
@@ -273,7 +276,8 @@ namespace SkillScale
                 SectionSkills, $"{label} Multiplier", 1f,
                 new ConfigDescription(
                     $"{label} XP rate (final for this skill). Not multiplied by global. Allowed 0 to 10.",
-                    new AcceptableValueRange<float>(MinRate, MaxXpRate)));
+                    new AcceptableValueRange<float>(MinRate, MaxXpRate)),
+                synchronizedSetting: false);
             if (Approximately(entry.Value, 1f) && !Approximately(starting, 1f))
             {
                 entry.Value = starting;
